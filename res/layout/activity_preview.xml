@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp" >
+
+        <Button
+            android:id="@+id/preview_cancel"
+            android:layout_width="66dp"
+            android:layout_height="36dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_recorder_cancel"
+            android:text="返回"
+            android:textColor="#bbbbbb"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/preview_next"
+            android:layout_width="66dp"
+            android:layout_height="36dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_recorder_next"
+            android:text="上传"
+            android:textColor="#444444"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/preview_video_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <SurfaceView
+            android:id="@+id/preview_video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.temobi.sx.sdk.vshare.recorder.ProgressBar
+            android:id="@+id/preview_progress"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignBottom="@id/preview_video" />
+
+        <ImageView
+            android:id="@+id/preview_play"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_centerInParent="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/play" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1" >
+    </RelativeLayout>
+
+</LinearLayout>

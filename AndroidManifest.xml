@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.temobi.sx.sdk.vshare"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="14" />
+
+    <application
+        android:allowBackup="true"
+        android:label="SDK"
+        android:theme="@android:style/Theme.Holo.Light" >
+        <activity
+            android:name="com.temobi.sx.sdk.vshare.player.RecorderActivity"
+            android:label="SDK" >
+        </activity>
+    </application>
+
+</manifest>
