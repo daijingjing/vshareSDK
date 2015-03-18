@@ -1,6 +1,8 @@
 package com.temobi.sx.sdk.vshare.recorder;
 
 import com.temobi.sx.sdk.vshare.R;
+import com.temobi.sx.sdk.vshare.player.VideoPlayer;
+import com.temobi.sx.sdk.vshare.player.VideoPlayerBase;
 
 public class PreviewActivity extends PreviewActivityBase {
 
@@ -41,6 +43,11 @@ public class PreviewActivity extends PreviewActivityBase {
 	@Override
 	protected int getProgressBarId() {
 		return R.id.preview_progress;
+	}
+
+	@Override
+	protected VideoPlayerBase createLocalPlayer(String arg0, String arg1) {
+		return new VideoPlayer(this, arg0);
 	}
 	
 }
