@@ -47,7 +47,9 @@ public class PreviewActivity extends PreviewActivityBase {
 
 	@Override
 	protected VideoPlayerBase createLocalPlayer(String arg0, String arg1) {
-		return new VideoPlayer(this, arg0);
+		VideoPlayer p =  new VideoPlayer(this, arg0, true);
+		p.setLoop(true);
+		return p;
 	}
 	
 }
