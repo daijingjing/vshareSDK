@@ -21,11 +21,6 @@ public class PreviewActivity extends PreviewActivityBase {
 	}
 
 	@Override
-	protected int getPlayButtonId() {
-		return R.id.preview_play;
-	}
-
-	@Override
 	protected int getCancelButtonId() {
 		return R.id.preview_cancel;
 	}
@@ -36,20 +31,14 @@ public class PreviewActivity extends PreviewActivityBase {
 	}
 
 	@Override
-	protected int getSurfaceViewId() {
-		return R.id.preview_video;
-	}
-
-	@Override
-	protected int getProgressBarId() {
-		return R.id.preview_progress;
-	}
-
-	@Override
 	protected VideoPlayerBase createLocalPlayer(String arg0, String arg1) {
 		VideoPlayer p =  new VideoPlayer(this, arg0, true);
 		p.setLoop(true);
 		return p;
+	}
+
+	@Override
+	protected void onRequestLocation() {
 	}
 	
 }

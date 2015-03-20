@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <!-- 拍摄时间 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/image_time"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/time" />
+
+                <!-- 日期 -->
+
+                <TextView
+                    android:id="@+id/month_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="4dp"
+                    android:alpha="0.8"
+                    android:singleLine="true"
+                    android:textColor="#f13653"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
+                <!-- 时间 -->
+
+                <TextView
+                    android:id="@+id/hh_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:alpha="0.8"
+                    android:singleLine="true"
+                    android:textColor="#444"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <!-- 位置信息 -->
+
+            <LinearLayout
+                android:id="@+id/positionArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="2dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/positionImg"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/position" />
+
+                <!-- 位置 -->
+
+                <TextView
+                    android:id="@+id/position"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.8"
+                    android:gravity="center_vertical"
+                    android:textColor="#444"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+            </LinearLayout>
+
+            <!-- 预览图片区域 -->
+
+            <RelativeLayout
+                android:id="@+id/previewArea"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="12dp" >
+
+                <!-- 预览图 -->
+
+                <ImageView
+                    android:id="@+id/poster"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pic_normal" />
+
+                <!-- 播放图片 -->
+
+                <ImageView
+                    android:id="@+id/playVideo"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:layout_alignBottom="@id/poster"
+                    android:layout_alignRight="@id/poster"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginRight="8dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/play" >
+                </ImageView>
+            </RelativeLayout>
+
+            <!-- 点赞和评论、功能键 -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" >
+
+                <LinearLayout
+                    android:id="@+id/loved_and_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp" >
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:alpha="0.7"
+        android:clickable="true"
+        android:padding="7dp"
+        android:src="@drawable/btn_share"
+        android:visibility="gone" />
+
+</RelativeLayout>

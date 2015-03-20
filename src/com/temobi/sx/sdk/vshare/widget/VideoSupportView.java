@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class VideoSupportView extends LovedView {
+public class VideoSupportView extends VideoSupportViewBase {
 
 	public VideoSupportView(Context context, RequestQueue requestQueue) {
 		super(context, requestQueue);

@@ -39,24 +39,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <SurfaceView
-            android:id="@+id/preview_video"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.temobi.sx.sdk.vshare.recorder.ProgressBar
-            android:id="@+id/preview_progress"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignBottom="@id/preview_video" />
-
-        <ImageView
-            android:id="@+id/preview_play"
-            android:layout_width="128dp"
-            android:layout_height="128dp"
-            android:layout_centerInParent="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/play" />
     </RelativeLayout>
 
     <RelativeLayout
