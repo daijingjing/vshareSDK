@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <LinearLayout 
+        android:id="@+id/comment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
+    
+    <ImageView 
+         android:id="@+id/more"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/more" />
+    
+    <ImageView
+        android:id="@+id/loading"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:indeterminateDrawable="@anim/update_loading_progressbar_anim"
+        android:visibility="visible" />
+    
+</RelativeLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="commment_dialog_send_btn_disable_color">#c9c9c9</color>
+    <color name="commment_dialog_send_btn_enable_color">#527fba</color>
+
+</resources>

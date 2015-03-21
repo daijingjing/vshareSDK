@@ -4,9 +4,12 @@ import org.apache.commons.lang.StringUtils;
 
 import com.android.volley.RequestQueue;
 import com.temobi.sx.sdk.vshare.R;
+import com.temobi.sx.sdk.vshare.net.CommentPostRequest;
 import com.temobi.sx.sdk.vshare.utils.Const;
 import com.temobi.sx.sdk.vshare.utils.PicUtils;
 import com.temobi.sx.sdk.vshare.utils.PrefUtils;
+import com.temobi.sx.sdk.vshare.widget.comment.CommentDialog;
+import com.temobi.sx.sdk.vshare.widget.comment.Comments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,11 +36,47 @@ public class VideoListView extends VideoListViewBase {
 		
 		// 点赞
 		VideoSupportView videoSupportView = new VideoSupportView(getContext(), this.requestQueue);
-		videoSupportView.load(itemId, PrefUtils.getUserId(getContext()));
 		extView.addView(videoSupportView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		videoSupportView.load(itemId, PrefUtils.getUserId(getContext()));
 
+		Comments commentView = new Comments(getContext(), this.requestQueue);
+		extView.addView(commentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		commentView.load(itemId);
+		
+		itemView.findViewById(R.id.comment).setOnClickListener(new PostCommentClickListener(itemId, commentView));
 		return itemView;
 	}
+	
+	class PostCommentClickListener implements View.OnClickListener {
+		String refId;
+		Comments commentView;
+		
+		public PostCommentClickListener(String refId, Comments commentView) {
+			this.refId = refId;
+			this.commentView = commentView;
+		}
+		
+		@Override
+		public void onClick(View arg0) {
+			new CommentDialog(getContext()){
+				protected void onCommit(String text) {
+					new CommentPostRequest(getContext(), requestQueue, PrefUtils.getUserKey(getContext()), refId, null, text) {
+						
+						@Override
+						protected void onReady() {
+							dismiss();
+							commentView.load(refId);
+						}
+						
+						@Override
+						protected void onError(String message) {
+							Toast.makeText(getContext(), "评论失败，请重试", Toast.LENGTH_SHORT).show();										
+						}
+					}.sync();
+				};
+			}.show(); 
+		}
+	};
 
 	@Override
 	protected ImageView getVideoPoster(View arg0) {

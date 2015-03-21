@@ -1,0 +1,17 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme" parent="android:Theme.Light.NoTitleBar">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="common_dlg_style">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.InputMethod</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+    </style>
+
+</resources>
