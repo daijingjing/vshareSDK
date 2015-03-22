@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
 
-public class CommentsItem extends FrameLayout {
+public class CommentItemView extends FrameLayout {
 	
 	private ImageView user_head;
 	private TextView  content, comment_date;
@@ -30,7 +30,7 @@ public class CommentsItem extends FrameLayout {
 		return userId;
 	}
 
-	public CommentsItem(Context context,String refId, String commentId, String userId) {
+	public CommentItemView(Context context,String refId, String commentId, String userId) {
 		super(context);
 		this.refId = refId;
 		this.commentId = commentId;

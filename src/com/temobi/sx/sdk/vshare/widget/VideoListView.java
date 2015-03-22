@@ -5,17 +5,12 @@ import org.apache.commons.lang.StringUtils;
 import com.android.volley.RequestQueue;
 import com.temobi.sx.sdk.vshare.R;
 import com.temobi.sx.sdk.vshare.net.CommentPostRequest;
-import com.temobi.sx.sdk.vshare.utils.Const;
-import com.temobi.sx.sdk.vshare.utils.PicUtils;
 import com.temobi.sx.sdk.vshare.utils.PrefUtils;
-import com.temobi.sx.sdk.vshare.widget.comment.CommentDialog;
-import com.temobi.sx.sdk.vshare.widget.comment.Comments;
+import com.temobi.sx.sdk.vshare.widget.comment.CommentPost;
+import com.temobi.sx.sdk.vshare.widget.comment.CommentView;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class VideoListView extends VideoListViewBase {
+	
+	final static int ID_SUPPORT = 0x8801;
+	final static int ID_COMMENT = 0x8802;
 
 	public VideoListView(Context context, RequestQueue requestQueue) {
 		super(context, requestQueue);
@@ -30,35 +28,37 @@ public class VideoListView extends VideoListViewBase {
 
 	@Override
 	protected View createItemView(String itemId) {
-		View itemView = View.inflate(getContext(), R.layout.topic_video_item, null);
+		View itemView = View.inflate(getContext(), R.layout.video_item, null);
 		
 		ViewGroup extView = (ViewGroup)itemView.findViewById(R.id.loved_and_comment);
 		
 		// 点赞
 		VideoSupportView videoSupportView = new VideoSupportView(getContext(), this.requestQueue);
+		videoSupportView.setId(ID_SUPPORT);
 		extView.addView(videoSupportView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		videoSupportView.load(itemId, PrefUtils.getUserId(getContext()));
-
-		Comments commentView = new Comments(getContext(), this.requestQueue);
-		extView.addView(commentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		commentView.load(itemId);
 		
+
+		CommentView commentView = new CommentView(getContext(), this.requestQueue);
+		commentView.setId(ID_COMMENT);
+		extView.addView(commentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
 		itemView.findViewById(R.id.comment).setOnClickListener(new PostCommentClickListener(itemId, commentView));
+		
 		return itemView;
 	}
 	
 	class PostCommentClickListener implements View.OnClickListener {
 		String refId;
-		Comments commentView;
+		CommentView commentView;
 		
-		public PostCommentClickListener(String refId, Comments commentView) {
+		public PostCommentClickListener(String refId, CommentView commentView) {
 			this.refId = refId;
 			this.commentView = commentView;
 		}
 		
 		@Override
 		public void onClick(View arg0) {
-			new CommentDialog(getContext()){
+			new CommentPost(getContext()){
 				protected void onCommit(String text) {
 					new CommentPostRequest(getContext(), requestQueue, PrefUtils.getUserKey(getContext()), refId, null, text) {
 						
@@ -135,5 +135,19 @@ public class VideoListView extends VideoListViewBase {
 
 	@Override
 	protected void onShareVideo(String videoId, String posterUrl, String shortUrl) {
+	}
+
+	@Override
+	protected void loadItemData(View arg0, String itemId) {
+		CommentView commentView = (CommentView)arg0.findViewById(ID_COMMENT);
+		VideoSupportView videoSupportView = (VideoSupportView)arg0.findViewById(ID_SUPPORT);
+		
+		videoSupportView.load(itemId, PrefUtils.getUserId(getContext()));
+		commentView.load(itemId);
+	}
+
+	@Override
+	protected View createFooterLoadingView() {
+		return inflate(getContext(), R.layout.footer_loading, null);
 	}
 }

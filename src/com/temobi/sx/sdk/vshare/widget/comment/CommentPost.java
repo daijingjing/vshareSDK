@@ -11,7 +11,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class CommentDialog extends Dialog implements TextWatcher {
+public class CommentPost extends Dialog implements TextWatcher {
 
 	private Button send_btn;
 	private Button cancel_btn;
@@ -19,13 +19,12 @@ public class CommentDialog extends Dialog implements TextWatcher {
 
 	private Context context;
 
-	public CommentDialog(Context context) {
+	public CommentPost(Context context) {
 		super(context, R.style.common_dlg_style);
 		this.context = context;
 		setContentView(R.layout.comment_post);
 		send_btn = (Button) findViewById(R.id.send_btn);
 		send_btn.setEnabled(false);
-		send_btn.setTextColor(context.getResources().getColor(R.color.commment_dialog_send_btn_disable_color));
 		send_btn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -48,8 +47,8 @@ public class CommentDialog extends Dialog implements TextWatcher {
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
 		onCancel();
+		super.onBackPressed();
 	}
 
 	protected void onCancel() {
@@ -72,10 +71,8 @@ public class CommentDialog extends Dialog implements TextWatcher {
 	public void onTextChanged(CharSequence s, int start, int before, int count) {
 		if (s.length() <= 0) {
 			send_btn.setEnabled(false);
-			send_btn.setTextColor(context.getResources().getColor(R.color.commment_dialog_send_btn_disable_color));
 		} else {
 			send_btn.setEnabled(true);
-			send_btn.setTextColor(context.getResources().getColor(R.color.commment_dialog_send_btn_enable_color));
 		}
 	}
 

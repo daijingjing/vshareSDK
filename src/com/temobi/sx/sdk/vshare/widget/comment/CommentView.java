@@ -20,9 +20,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class Comments extends FrameLayout {
+public class CommentView extends FrameLayout {
 	
-	private final static String TAG = Comments.class.getSimpleName();
+	private final static String TAG = CommentView.class.getSimpleName();
 
 	private CommentRequest commentRequest;
 	private CommentRemoveRequest commentRemoveRequest;
@@ -30,9 +30,11 @@ public class Comments extends FrameLayout {
 	private ImageView moreButton;// 点击加载更多
 	private View loading; // 正在加载的滚动条
 	private LinearLayout commentContainer;
-	private CommentsItem selectedItem;
+	private CommentItemView selectedItem;
+	
+	
 
-	public Comments(Context context, RequestQueue requestQueue) {
+	public CommentView(Context context, RequestQueue requestQueue) {
 		super(context);
 		inflate(context, R.layout.comments, this);
 
@@ -119,7 +121,7 @@ public class Comments extends FrameLayout {
 		loading.setVisibility(VISIBLE);
 	}
 
-	private void removeItem(CommentsItem v) {
+	private void removeItem(CommentItemView v) {
 		commentRemoveRequest.setCommentId(v.getCommentId());
 		commentRemoveRequest.sync();
 		commentContainer.removeView(v);
@@ -130,7 +132,7 @@ public class Comments extends FrameLayout {
 		commentContainer.removeAllViews();
 		for (int i = 0; i < data.size(); i++) {
 			Comment comment = data.get(i);
-			CommentsItem commentItemView = new CommentsItem(getContext(), comment.RefId, comment.Id, comment.UserId);
+			CommentItemView commentItemView = new CommentItemView(getContext(), comment.RefId, comment.Id, comment.UserId);
 
 			commentItemView.getCommentContentTextView().setText(
 					Html.fromHtml("<font color=\"#6a7a8a\">" + comment.UserName
@@ -152,7 +154,7 @@ public class Comments extends FrameLayout {
 	private View.OnClickListener onCommentClickListener = new OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			selectedItem = (CommentsItem) v.getParent().getParent();
+			selectedItem = (CommentItemView) v.getParent().getParent();
 			if (selectedItem.getUserId().equals(PrefUtils.getUserId(getContext()))) {
 				new AlertDialog.Builder(getContext()).setItems(new String[] { "删除评论" },
 						new DialogInterface.OnClickListener() {
