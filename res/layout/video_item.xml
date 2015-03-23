@@ -128,7 +128,7 @@
                     android:shadowDy="0"
                     android:shadowRadius="1.5"
                     android:text="举报视频"
-                    android:textColor="#FFF"
+                    android:textColor="#33cc33"
                     android:textSize="12sp"
                     android:textStyle="bold" />
             </RelativeLayout>

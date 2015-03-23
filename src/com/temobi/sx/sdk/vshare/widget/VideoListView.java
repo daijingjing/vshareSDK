@@ -27,7 +27,7 @@ public class VideoListView extends VideoListViewBase {
 	}
 
 	@Override
-	protected View createItemView(String itemId) {
+	protected View createItemView(String videoId) {
 		View itemView = View.inflate(getContext(), R.layout.video_item, null);
 		
 		ViewGroup extView = (ViewGroup)itemView.findViewById(R.id.loved_and_comment);
@@ -42,8 +42,8 @@ public class VideoListView extends VideoListViewBase {
 		commentView.setId(ID_COMMENT);
 		extView.addView(commentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-		itemView.findViewById(R.id.comment).setTag(itemId);
-		itemView.findViewById(R.id.comment).setOnClickListener(new PostCommentClickListener(itemId, commentView));
+		itemView.findViewById(R.id.comment).setTag(videoId);
+		itemView.findViewById(R.id.comment).setOnClickListener(new PostCommentClickListener(videoId, commentView));
 		
 		return itemView;
 	}
@@ -81,8 +81,8 @@ public class VideoListView extends VideoListViewBase {
 	};
 
 	@Override
-	protected ImageView getVideoPoster(View arg0) {
-		return (ImageView)arg0.findViewById(R.id.poster);
+	protected ImageView getVideoPoster(View itemView) {
+		return (ImageView)itemView.findViewById(R.id.poster);
 	}
 
 	@Override
@@ -96,13 +96,13 @@ public class VideoListView extends VideoListViewBase {
 	}
 
 	@Override
-	protected TextView getCreateDate(View arg0) {
-		return (TextView)arg0.findViewById(R.id.hh_time);
+	protected TextView getCreateDate(View itemView) {
+		return (TextView)itemView.findViewById(R.id.hh_time);
 	}
 
 	@Override
-	protected TextView getLocation(View arg0) {
-		return (TextView)arg0.findViewById(R.id.position);
+	protected TextView getLocation(View itemView) {
+		return (TextView)itemView.findViewById(R.id.position);
 	}
 
 	@Override
@@ -111,8 +111,8 @@ public class VideoListView extends VideoListViewBase {
 	}
 
 	@Override
-	protected ImageView getUserAvatar(View arg0) {
-		return (ImageView)arg0.findViewById(R.id.user_avatar);
+	protected ImageView getUserAvatar(View itemView) {
+		return (ImageView)itemView.findViewById(R.id.user_avatar);
 	}
 	
 	@Override
@@ -140,14 +140,14 @@ public class VideoListView extends VideoListViewBase {
 	}
 
 	@Override
-	protected void loadItemData(View itemView, String itemId) {
+	protected void loadItemData(View itemView, String videoId) {
 		CommentView commentView = (CommentView)itemView.findViewById(ID_COMMENT);
 		VideoSupportView videoSupportView = (VideoSupportView)itemView.findViewById(ID_SUPPORT);
 		
-		videoSupportView.load(itemId, PrefUtils.getUserId(getContext()));
-		commentView.load(itemId);
+		videoSupportView.load(videoId, PrefUtils.getUserId(getContext()));
+		commentView.load(videoId);
 		
-		itemView.findViewById(R.id.comment).setTag(itemId);
+		itemView.findViewById(R.id.comment).setTag(videoId);
 	}
 
 	@Override
