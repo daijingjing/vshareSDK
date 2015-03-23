@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp" >
 
     <RelativeLayout
-        android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp" >
+        android:layout_height="wrap_content" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -15,7 +14,7 @@
             android:background="#fff"
             android:orientation="vertical"
             android:paddingBottom="10dp"
-            android:paddingTop="25dp" >
+            android:paddingTop="10dp" >
 
             <!-- 拍摄时间 -->
 
@@ -23,7 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
                 android:layout_marginTop="4dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
@@ -38,6 +36,20 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/time" />
 
+                <!-- 日期 -->
+
+                <TextView
+                    android:id="@+id/month_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="4dp"
+                    android:alpha="0.8"
+                    android:singleLine="true"
+                    android:textColor="#f13653"
+                    android:textSize="12sp"
+                    android:textStyle="normal" />
+
                 <!-- 时间 -->
 
                 <TextView
@@ -47,7 +59,7 @@
                     android:layout_gravity="center_vertical"
                     android:alpha="0.8"
                     android:singleLine="true"
-                    android:textColor="#f13653"
+                    android:textColor="#444"
                     android:textSize="12sp"
                     android:textStyle="normal" />
             </LinearLayout>
@@ -59,7 +71,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
-                android:layout_marginRight="6dp"
                 android:layout_marginTop="2dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
@@ -115,22 +126,6 @@
                     android:scaleType="centerInside"
                     android:src="@drawable/play" >
                 </ImageView>
-
-                <TextView
-                    android:id="@+id/report"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignRight="@id/poster"
-                    android:layout_alignTop="@id/poster"
-                    android:padding="8dp"
-                    android:shadowColor="#000"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="1.5"
-                    android:text="举报视频"
-                    android:textColor="#FFF"
-                    android:textSize="12sp"
-                    android:textStyle="bold" />
             </RelativeLayout>
 
             <!-- 点赞和评论、功能键 -->
@@ -144,7 +139,6 @@
                     android:id="@+id/loved_and_comment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="48dp"
                     android:orientation="vertical"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp" >
@@ -153,54 +147,15 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <com.temobi.sx.sdk.vshare.widget.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/user_avatar"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:layout_alignParentLeft="true"
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="8dp"
-        app:border_color="#33000000"
-        app:border_width="2dp"
-        app:inside_border_color="#9900D000"
-        app:inside_border_width="2dp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@id/content"
-        android:layout_alignTop="@id/content"
-        android:orientation="horizontal"
-        android:padding="4dp" >
-
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_margin="4dp"
-            android:alpha="0.7"
-            android:background="@drawable/btn_delete"
-            android:clickable="true" />
-
-        <Button
-            android:id="@+id/share"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_margin="4dp"
-            android:alpha="0.7"
-            android:background="@drawable/btn_share"
-            android:clickable="true" />
-
-        <Button
-            android:id="@+id/comment"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_margin="4dp"
-            android:alpha="0.7"
-            android:background="@drawable/btn_comment"
-            android:clickable="true" />
-    </LinearLayout>
+        android:alpha="0.7"
+        android:clickable="true"
+        android:padding="7dp"
+        android:src="@drawable/btn_share"
+        android:visibility="gone" />
 
 </RelativeLayout>

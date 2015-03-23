@@ -42,6 +42,7 @@ public class VideoListView extends VideoListViewBase {
 		commentView.setId(ID_COMMENT);
 		extView.addView(commentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+		itemView.findViewById(R.id.comment).setTag(itemId);
 		itemView.findViewById(R.id.comment).setOnClickListener(new PostCommentClickListener(itemId, commentView));
 		
 		return itemView;
@@ -58,6 +59,7 @@ public class VideoListView extends VideoListViewBase {
 		
 		@Override
 		public void onClick(View arg0) {
+			refId = (String)arg0.getTag();
 			new CommentPost(getContext()){
 				protected void onCommit(String text) {
 					new CommentPostRequest(getContext(), requestQueue, PrefUtils.getUserKey(getContext()), refId, null, text) {
@@ -117,9 +119,9 @@ public class VideoListView extends VideoListViewBase {
 	protected void loadAvatar(String userId, String mobile, ImageView avatar) {
 		super.loadAvatar(userId, mobile, avatar);
 		
-		boolean mine = StringUtils.equals(userId, PrefUtils.getUserId(getContext()));
-		if (mine && avatar instanceof CircleImageView) {
-			((CircleImageView)avatar).setInsideBorderColor(Color.parseColor("#99D00000"));
+		if (avatar instanceof CircleImageView) {
+			boolean mine = StringUtils.equals(userId, PrefUtils.getUserId(getContext()));
+			((CircleImageView)avatar).setInsideBorderColor(Color.parseColor(mine ? "#99D00000" : "#9900D000"));
 		}
 	}
 
@@ -138,16 +140,23 @@ public class VideoListView extends VideoListViewBase {
 	}
 
 	@Override
-	protected void loadItemData(View arg0, String itemId) {
-		CommentView commentView = (CommentView)arg0.findViewById(ID_COMMENT);
-		VideoSupportView videoSupportView = (VideoSupportView)arg0.findViewById(ID_SUPPORT);
+	protected void loadItemData(View itemView, String itemId) {
+		CommentView commentView = (CommentView)itemView.findViewById(ID_COMMENT);
+		VideoSupportView videoSupportView = (VideoSupportView)itemView.findViewById(ID_SUPPORT);
 		
 		videoSupportView.load(itemId, PrefUtils.getUserId(getContext()));
 		commentView.load(itemId);
+		
+		itemView.findViewById(R.id.comment).setTag(itemId);
 	}
 
 	@Override
 	protected View createFooterLoadingView() {
 		return inflate(getContext(), R.layout.footer_loading, null);
+	}
+
+	@Override
+	protected View getReportButton(View itemView) {
+		return itemView.findViewById(R.id.report);
 	}
 }
