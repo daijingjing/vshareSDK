@@ -140,6 +140,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp" >
 
+                <TextView
+                    android:id="@+id/play_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:paddingRight="8dp"
+                    android:shadowColor="#FFF"
+                    android:shadowDx="0"
+                    android:shadowDy="0"
+                    android:shadowRadius="1.5"
+                    android:textColor="#666"
+                    android:textSize="12sp" />
+
                 <LinearLayout
                     android:id="@+id/loved_and_comment"
                     android:layout_width="match_parent"

@@ -159,4 +159,9 @@ public class VideoListView extends VideoListViewBase {
 	protected View getReportButton(View itemView) {
 		return itemView.findViewById(R.id.report);
 	}
+
+	@Override
+	protected TextView getPlayTotal(View itemView) {
+		return (TextView)itemView.findViewById(R.id.play_total);
+	}
 }
