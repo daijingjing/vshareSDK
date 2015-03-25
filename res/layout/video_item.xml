@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="#eee" >
 
     <RelativeLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp" >
+        android:layout_marginTop="40dp" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,7 +90,7 @@
             <RelativeLayout
                 android:id="@+id/previewArea"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="220dp"
                 android:layout_marginTop="12dp" >
 
                 <!-- 预览图 -->
@@ -108,10 +109,7 @@
                     android:id="@+id/playVideo"
                     android:layout_width="65dp"
                     android:layout_height="65dp"
-                    android:layout_alignBottom="@id/poster"
-                    android:layout_alignRight="@id/poster"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_centerInParent="true"
                     android:scaleType="centerInside"
                     android:src="@drawable/play" >
                 </ImageView>
@@ -137,22 +135,43 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" >
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/play_total"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:paddingRight="8dp"
-                    android:shadowColor="#FFF"
-                    android:shadowDx="0"
-                    android:shadowDy="0"
-                    android:shadowRadius="1.5"
-                    android:textColor="#666"
-                    android:textSize="12sp" />
+                    android:orientation="horizontal"
+                    android:paddingRight="4dp" >
+
+                    <Button
+                        android:id="@+id/delete"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_margin="4dp"
+                        android:alpha="0.7"
+                        android:background="@drawable/btn_delete"
+                        android:clickable="true" />
+
+                    <Button
+                        android:id="@+id/share"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_margin="4dp"
+                        android:alpha="0.7"
+                        android:background="@drawable/btn_share"
+                        android:clickable="true" />
+
+                    <Button
+                        android:id="@+id/comment"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_margin="4dp"
+                        android:alpha="0.7"
+                        android:background="@drawable/btn_comment"
+                        android:clickable="true" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/loved_and_comment"
@@ -160,6 +179,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
                     android:orientation="vertical"
+                    android:paddingTop="8dp"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp" >
                 </LinearLayout>
@@ -170,51 +190,29 @@
     <com.temobi.sx.sdk.vshare.widget.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/user_avatar"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignTop="@id/content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="-28dp"
         app:border_color="#33000000"
         app:border_width="2dp"
         app:inside_border_color="#9900D000"
-        app:inside_border_width="2dp" />
+        app:inside_border_width="3dp" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/play_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@id/content"
         android:layout_alignTop="@id/content"
-        android:orientation="horizontal"
-        android:padding="4dp" >
-
-        <Button
-            android:id="@+id/delete"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_margin="4dp"
-            android:alpha="0.7"
-            android:background="@drawable/btn_delete"
-            android:clickable="true" />
-
-        <Button
-            android:id="@+id/share"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_margin="4dp"
-            android:alpha="0.7"
-            android:background="@drawable/btn_share"
-            android:clickable="true" />
-
-        <Button
-            android:id="@+id/comment"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_margin="4dp"
-            android:alpha="0.7"
-            android:background="@drawable/btn_comment"
-            android:clickable="true" />
-    </LinearLayout>
+        android:padding="8dp"
+        android:shadowColor="#FFF"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="1.5"
+        android:textColor="#666"
+        android:textSize="12sp" />
 
 </RelativeLayout>
