@@ -3,6 +3,7 @@ SDK使用说明
 1、开发环境Eclipse
 2、服务端接口通过HTTP+JSON的方式交互
 3、SDK调用前需要初始化，详细的初始化代码可以参考DEMO下的MainActivity
+4、主要功能：视频的录制、播放、截图展现
 
 
 由于设计用户体系，需要进行用户集成登录，用户集成验证的接口如下：
@@ -22,6 +23,28 @@ curl -H "Content-Type: application/json" -d "{\"mobile\":\"18636636365\", \"sour
 SDK初始化过程：
 
 1、SDK会验证当前会话是否有效，如果有效，则可以调用录制操作
+	// 初始化SDK
+	sdkInstance = new SDK(MainActivity.this, appId, appPassword, channelId) {
+		@Override
+		protected void onInvalidAppId() {
+			Toast.makeText(MainActivity.this, "APPID无效", Toast.LENGTH_LONG).show();
+		}
+		@Override
+		protected void onInvalidSession() {
+			// 通过第三方验证接口获取验证码
+			Toast.makeText(MainActivity.this, "会话无效，请登录", Toast.LENGTH_LONG).show();
+			findViewById(R.id.login).setEnabled(true);
+		}
+		@Override
+		protected void onSucceeded(String userId) {
+			MainActivity.this.onLoginSucceed(userId);
+		}
+		@Override
+		protected void onFaild() {
+			Toast.makeText(MainActivity.this, "启动失败！", Toast.LENGTH_LONG).show();
+		}
+	};
+
 2、如果SDK无效，会触发 onInvalidSession 方法
 3、通过用户集成验证的接口，获取手机号对应的验证码，调用SDK.login方法完成SDK的初始化
 	curl -H "Content-Type: application/json" -d "{\"mobile\":\"18636636365\", \"source_id\":1000}" "http://d.c365.com/thirdparty/validate"
@@ -44,3 +67,4 @@ SDK初始化过程：
 	VideoPlayer v = new VideoPlayer(MainActivity.this, videoId, true);
 
 6、视频ID用于业务展现，数据保存在调用方。
+
