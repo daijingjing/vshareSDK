@@ -1,6 +1,7 @@
 package com.temobi.sx.sdk.vshare.recorder;
 
 import com.temobi.sx.sdk.vshare.R;
+import com.temobi.sx.sdk.vshare.player.PreviewActivityBase;
 import com.temobi.sx.sdk.vshare.player.VideoPlayer;
 import com.temobi.sx.sdk.vshare.player.VideoPlayerBase;
 
