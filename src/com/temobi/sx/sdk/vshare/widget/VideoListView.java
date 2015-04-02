@@ -33,12 +33,22 @@ public class VideoListView extends VideoListViewBase {
 		ViewGroup extView = (ViewGroup)itemView.findViewById(R.id.loved_and_comment);
 		
 		// 点赞
-		VideoSupportView videoSupportView = new VideoSupportView(getContext(), this.requestQueue);
+		VideoSupportView videoSupportView = new VideoSupportView(getContext(), this.requestQueue) {
+			@Override
+			protected void onClickUserAvatar(String userId) {
+				VideoListView.this.onClickSupportUserAvatar(userId);
+			}
+		};
 		videoSupportView.setId(ID_SUPPORT);
 		extView.addView(videoSupportView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		
-
-		CommentView commentView = new CommentView(getContext(), this.requestQueue);
+		CommentView commentView = new CommentView(getContext(), this.requestQueue) {
+			@Override
+			protected void onClickUserAvatar(String userId) {
+				VideoListView.this.onClickCommentUserAvatar(userId);
+			}
+		};
+		
 		commentView.setId(ID_COMMENT);
 		extView.addView(commentView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
@@ -163,5 +173,10 @@ public class VideoListView extends VideoListViewBase {
 	@Override
 	protected TextView getPlayTotal(View itemView) {
 		return (TextView)itemView.findViewById(R.id.play_total);
+	}
+
+	protected void onClickSupportUserAvatar(String userId) {
+	}
+	protected void onClickCommentUserAvatar(String userId) {
 	}
 }

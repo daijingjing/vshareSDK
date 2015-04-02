@@ -2,6 +2,8 @@ package com.temobi.sx.sdk.vshare.widget.comment;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.android.volley.RequestQueue;
 import com.temobi.sx.sdk.vshare.R;
 import com.temobi.sx.sdk.vshare.model.Comment;
@@ -13,7 +15,13 @@ import com.temobi.sx.sdk.vshare.utils.PrefUtils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.SpannedString;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -134,12 +142,22 @@ public class CommentView extends FrameLayout {
 			Comment comment = data.get(i);
 			CommentItemView commentItemView = new CommentItemView(getContext(), comment.RefId, comment.Id, comment.UserId);
 
-			commentItemView.getCommentContentTextView().setText(
-					Html.fromHtml("<font color=\"#6a7a8a\">" + comment.UserName
-							+ "</font>:<font color=\"#5a5a5a\">" + comment.Content + "</font>"));
+			comment.UserName = comment.UserName.replaceAll("[\\r|\\n|\\t]", "");
+			comment.Content = comment.Content.replaceAll("[\\r|\\n|\\t]", "");
+			int nameLength = StringUtils.length(comment.UserName);
+			SpannableStringBuilder sb = new SpannableStringBuilder(nameLength > 0 ? comment.UserName + ":" + comment.Content : comment.Content);
+			if (nameLength > 0) {
+				sb.setSpan(new ForegroundColorSpan(Color.parseColor("#6a7a8a")), 0, nameLength + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+				sb.setSpan(new ForegroundColorSpan(Color.parseColor("#5a5a5a")), nameLength + 1, nameLength + comment.Content.length() - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			} else {
+				sb.setSpan(new ForegroundColorSpan(Color.parseColor("#5a5a5a")), 0, comment.Content.length() - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			}
+			
+			commentItemView.getCommentContentTextView().setText(sb);
 			
 			commentItemView.getCommentDateTextView().setText(DateUtils.toBeauty(comment.Publish));
-			commentItemView.getCommentContentTextView().setOnClickListener(onCommentClickListener);
+			commentItemView.getCommentContentTextView().setOnLongClickListener(onCommentClickListener);
+			commentItemView.getHeadImageView().setOnClickListener(new UserAvatarClickListener(comment.UserId));
 			
 			commentContainer.addView(commentItemView);
 		}
@@ -151,9 +169,23 @@ public class CommentView extends FrameLayout {
 		}
 	}
 	
-	private View.OnClickListener onCommentClickListener = new OnClickListener() {
+	private class UserAvatarClickListener implements View.OnClickListener{
+		final String userId;
+		public UserAvatarClickListener(String userId){
+			this.userId = userId;
+		}
 		@Override
-		public void onClick(View v) {
+		public void onClick(View arg0) {
+			CommentView.this.onClickUserAvatar(userId);
+		}
+	}
+	
+	protected void onClickUserAvatar(String userId) {
+	}
+	
+	private View.OnLongClickListener onCommentClickListener = new View.OnLongClickListener() {
+		@Override
+		public boolean onLongClick(View v) {
 			selectedItem = (CommentItemView) v.getParent().getParent();
 			if (selectedItem.getUserId().equals(PrefUtils.getUserId(getContext()))) {
 				new AlertDialog.Builder(getContext()).setItems(new String[] { "删除评论" },
@@ -169,9 +201,11 @@ public class CommentView extends FrameLayout {
 								}
 							}
 						}).show();
-			} else {
-				Toast.makeText(getContext(), "亲！只能删除自己的评论", Toast.LENGTH_SHORT).show();
+				
+				return true;
 			}
+			
+			return false;
 		}
 	};
 }
