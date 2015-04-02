@@ -24,6 +24,10 @@
             android:name="com.temobi.sx.sdk.vshare.activity.SetMyAvatarActivity"
             android:screenOrientation="portrait" >
         </activity>
+        <activity
+            android:name="com.temobi.sx.sdk.vshare.activity.UserPortalActivity"
+            android:screenOrientation="portrait" >
+        </activity>
     </application>
 
 </manifest>

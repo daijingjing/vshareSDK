@@ -1,7 +1,5 @@
 package com.temobi.sx.sdk.vshare.widget;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.android.volley.RequestQueue;
 import com.temobi.sx.sdk.vshare.R;
 import com.temobi.sx.sdk.vshare.net.CommentPostRequest;
@@ -10,25 +8,24 @@ import com.temobi.sx.sdk.vshare.widget.comment.CommentPost;
 import com.temobi.sx.sdk.vshare.widget.comment.CommentView;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class VideoListView extends VideoListViewBase {
+public class VideoListViewByUser extends VideoListViewByUserBase {
 	
 	final static int ID_SUPPORT = 0x8801;
 	final static int ID_COMMENT = 0x8802;
 
-	public VideoListView(Context context, RequestQueue requestQueue) {
+	public VideoListViewByUser(Context context, RequestQueue requestQueue) {
 		super(context, requestQueue);
 	}
 
 	@Override
 	protected View createItemView(String videoId) {
-		View itemView = View.inflate(getContext(), R.layout.video_item, null);
+		View itemView = View.inflate(getContext(), R.layout.video_item_user, null);
 		
 		ViewGroup extView = (ViewGroup)itemView.findViewById(R.id.loved_and_comment);
 		
@@ -36,7 +33,7 @@ public class VideoListView extends VideoListViewBase {
 		VideoSupportView videoSupportView = new VideoSupportView(getContext(), this.requestQueue) {
 			@Override
 			protected void onClickUserAvatar(String userId) {
-				VideoListView.this.onClickSupportUserAvatar(userId);
+				VideoListViewByUser.this.onClickSupportUserAvatar(userId);
 			}
 		};
 		videoSupportView.setId(ID_SUPPORT);
@@ -45,7 +42,7 @@ public class VideoListView extends VideoListViewBase {
 		CommentView commentView = new CommentView(getContext(), this.requestQueue) {
 			@Override
 			protected void onClickUserAvatar(String userId) {
-				VideoListView.this.onClickCommentUserAvatar(userId);
+				VideoListViewByUser.this.onClickCommentUserAvatar(userId);
 			}
 		};
 		
@@ -112,26 +109,6 @@ public class VideoListView extends VideoListViewBase {
 	@Override
 	protected TextView getLocation(View itemView) {
 		return (TextView)itemView.findViewById(R.id.position);
-	}
-
-	@Override
-	protected int getDefaultAvatarDrawable() {
-		return R.drawable.default_head;
-	}
-
-	@Override
-	protected ImageView getUserAvatar(View itemView) {
-		return (ImageView)itemView.findViewById(R.id.user_avatar);
-	}
-	
-	@Override
-	protected void loadAvatar(String userId, String mobile, ImageView avatar) {
-		super.loadAvatar(userId, mobile, avatar);
-		
-		if (avatar instanceof CircleImageView) {
-			boolean mine = StringUtils.equals(userId, PrefUtils.getUserId(getContext()));
-			((CircleImageView)avatar).setInsideBorderColor(Color.parseColor(mine ? "#99D00000" : "#9900D000"));
-		}
 	}
 
 	@Override

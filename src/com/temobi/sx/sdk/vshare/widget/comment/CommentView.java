@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.temobi.sx.sdk.vshare.R;
 import com.temobi.sx.sdk.vshare.model.Comment;
@@ -41,7 +42,6 @@ public class CommentView extends FrameLayout {
 	private CommentItemView selectedItem;
 	
 	
-
 	public CommentView(Context context, RequestQueue requestQueue) {
 		super(context);
 		inflate(context, R.layout.comments, this);
@@ -60,6 +60,7 @@ public class CommentView extends FrameLayout {
 			protected void onError(String message) {
 				onLoadError();
 			}
+			
 		};
 
 		commentRemoveRequest = new CommentRemoveRequest(context, requestQueue, PrefUtils.getUserKey(getContext()), null) {
@@ -87,7 +88,7 @@ public class CommentView extends FrameLayout {
 
 	protected void onLoadError() {
 		loading.setVisibility(View.GONE);
-		Toast.makeText(getContext(), "加载数据失败，请检查网络设置！", Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getContext(), "加载数据失败，请检查网络设置！", Toast.LENGTH_SHORT).show();
 	}
 	
 	protected void onDeleteError() {
