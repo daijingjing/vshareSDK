@@ -14,7 +14,15 @@
         android:theme="@android:style/Theme.Holo.Light" >
         <activity
             android:name="com.temobi.sx.sdk.vshare.player.RecorderActivity"
-            android:label="SDK" >
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.temobi.sx.sdk.vshare.activity.VideoPlayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.temobi.sx.sdk.vshare.activity.SetMyAvatarActivity"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
