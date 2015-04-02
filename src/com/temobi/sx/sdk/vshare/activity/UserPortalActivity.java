@@ -20,7 +20,7 @@ public class UserPortalActivity extends Activity {
 
 	public static final String PARAMS_USER_ID = "UserId";
 	
-	String userId;
+	String userId = null;
 	RequestQueue requestQueue;
 	VideoListViewByUser mVideoListViewByUser;
 	
@@ -34,11 +34,6 @@ public class UserPortalActivity extends Activity {
 		Intent data = getIntent();
 		if (data.hasExtra(PARAMS_USER_ID)) {
 			userId = data.getStringExtra(PARAMS_USER_ID);
-		}
-		
-		if (StringUtils.isEmpty(userId)) {
-			Toast.makeText(getApplicationContext(), "调用错误", Toast.LENGTH_SHORT).show();
-			finish();
 		}
 		
 		ViewGroup container = (ViewGroup)findViewById(R.id.video_list_container);
