@@ -45,13 +45,14 @@
         android:text="+赞"
         android:textSize="12sp" />
 
-    <GridLayout
+    <LinearLayout
         android:id="@+id/loved_list"
         android:layout_width="0px"
         android:layout_height="wrap_content"
         android:layout_marginLeft="6dp"
-        android:layout_weight="1" >
-    </GridLayout>
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+    </LinearLayout>
 
     <TextView
         android:id="@+id/has_more"
