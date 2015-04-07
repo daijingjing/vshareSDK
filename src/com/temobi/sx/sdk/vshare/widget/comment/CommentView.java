@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.temobi.sx.sdk.vshare.R;
 import com.temobi.sx.sdk.vshare.model.Comment;
 import com.temobi.sx.sdk.vshare.net.CommentRemoveRequest;
+import com.temobi.sx.sdk.vshare.net.CommentReportRequest;
 import com.temobi.sx.sdk.vshare.net.CommentRequest;
 import com.temobi.sx.sdk.vshare.utils.DateUtils;
 import com.temobi.sx.sdk.vshare.utils.PrefUtils;
@@ -17,11 +17,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.text.Html;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.SpannedString;
-import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -35,12 +32,14 @@ public class CommentView extends FrameLayout {
 
 	private CommentRequest commentRequest;
 	private CommentRemoveRequest commentRemoveRequest;
+	private CommentReportRequest commentReportRequest;
 
 	private ImageView moreButton;// 点击加载更多
 	private View loading; // 正在加载的滚动条
 	private LinearLayout commentContainer;
 	private CommentItemView selectedItem;
 	
+	private String refId;
 	
 	public CommentView(Context context, RequestQueue requestQueue) {
 		super(context);
@@ -75,7 +74,22 @@ public class CommentView extends FrameLayout {
 				onDeleteError();
 			}
 		};
-
+		
+		commentReportRequest = new CommentReportRequest(context, requestQueue, PrefUtils.getUserKey(getContext()), "") {
+			
+			@Override
+			protected void onReady() {
+				Toast.makeText(getContext(), "已成功举报！", Toast.LENGTH_SHORT).show();
+				if(this.isRemoved()){
+					load(refId);
+				}
+			}
+			
+			@Override
+			protected void onError(String arg0) {
+				Toast.makeText(getContext(), "举报失败，请检查网络设置！", Toast.LENGTH_SHORT).show();
+			}
+		}; 
 	}
 
 	protected void onLoadFinished() {
@@ -114,6 +128,7 @@ public class CommentView extends FrameLayout {
 	}
 
 	public void load(String refId) {
+		this.refId = refId;
 		commentRequest.cancelRequest();
 
 		onLoading();
@@ -189,7 +204,7 @@ public class CommentView extends FrameLayout {
 		public boolean onLongClick(View v) {
 			selectedItem = (CommentItemView) v.getParent().getParent();
 			if (selectedItem.getUserId().equals(PrefUtils.getUserId(getContext()))) {
-				new AlertDialog.Builder(getContext()).setItems(new String[] { "删除评论" },
+				new AlertDialog.Builder(getContext()).setItems(new String[] { "删除评论"},
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
@@ -197,6 +212,7 @@ public class CommentView extends FrameLayout {
 								case 0:
 									removeItem(selectedItem);
 									break;
+									
 								default:
 									break;
 								}
@@ -204,9 +220,46 @@ public class CommentView extends FrameLayout {
 						}).show();
 				
 				return true;
+			}else{
+				new AlertDialog.Builder(getContext()).setItems(new String[] { "举报" },
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							switch (which) {
+							case 0:
+								doReportComment(selectedItem);
+								break;
+								
+							default:
+								break;
+							}
+						}
+					}).show();
+				return true;
 			}
 			
-			return false;
+//			return false;
 		}
 	};
+	
+	private void doReportComment(final CommentItemView item){
+		new AlertDialog.Builder(getContext(), AlertDialog.THEME_HOLO_LIGHT).setTitle("举报")
+		.setMessage("确定要举报该内容吗？").setNegativeButton("点错了", null)
+		.setPositiveButton("绝对要举报", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				if (StringUtils.isNotEmpty(item.getCommentId())) {
+					commentReportRequest.setCommentId(item.getCommentId());
+					commentReportRequest.sync();
+//					if(commentReportRequest.isRemoved()){
+//						removeItem(item);
+//					}
+				} else {
+					Toast.makeText(getContext(), "网络不给力，操作失败，请检查您的网络设置", Toast.LENGTH_LONG).show();
+				}
+			}
+		}).show();
+	}
 }
