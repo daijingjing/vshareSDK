@@ -1,4 +1,4 @@
-SDK使用说明
+#SDK使用说明
 
 1、开发环境Eclipse
 2、服务端接口通过HTTP+JSON的方式交互
@@ -6,7 +6,7 @@ SDK使用说明
 4、主要功能：视频的录制、播放、截图展现
 
 
-由于设计用户体系，需要进行用户集成登录，用户集成验证的接口如下：
+#由于设计用户体系，需要进行用户集成登录，用户集成验证的接口如下：
 
 业务系统接口地址：http://d.c365.com/thirdparty/validate
     调用方式：HTTP+JSON (POST)
@@ -15,12 +15,12 @@ SDK使用说明
     返回值：validcode [string] 随机验证码
 
     
-业务系统接口测试代码：
+#业务系统接口测试代码：
 curl -H "Content-Type: application/json" -d "{\"mobile\":\"18636636365\", \"source_id\":1000}" "http://d.c365.com/thirdparty/validate"
 
 
 
-SDK初始化过程：
+#SDK初始化过程：
 
 1、SDK会验证当前会话是否有效，如果有效，则可以调用录制操作
 	// 初始化SDK
