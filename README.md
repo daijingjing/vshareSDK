@@ -10,7 +10,7 @@
 	业务系统接口地址：http://d.c365.com/thirdparty/validate
 
 		调用方式：HTTP+JSON (POST)
-		参数：source_id [int] 渠道编号(暂定1000)
+		参数：source_id [int] ***渠道编号***
 		参数：mobile [string] 用户手机号
 		返回值：validcode [string] 随机验证码
 
@@ -25,7 +25,7 @@
 1、SDK会验证当前会话是否有效，如果有效，则可以调用录制操作
 
 	// 初始化SDK
-	sdkInstance = new SDK(MainActivity.this, appId, appPassword, channelId) {
+	sdkInstance = new SDK(MainActivity.this, ***APPID***, ***APPID_PASSWORD***, ***渠道编号***) {
 		@Override
 		protected void onInvalidAppId() {
 			Toast.makeText(MainActivity.this, "APPID无效", Toast.LENGTH_LONG).show();
@@ -50,7 +50,7 @@
 
 3、通过用户集成验证的接口，获取手机号对应的验证码，调用SDK.login方法完成SDK的初始化
 
-	curl -H "Content-Type: application/json" -d "{\"mobile\":\"18636636365\", \"source_id\":1000}" "http://d.c365.com/thirdparty/validate"
+	curl -H "Content-Type: application/json" -d "{\"mobile\":\"***11位手机号码***\", \"source_id\":***渠道编号***}" "http://d.c365.com/thirdparty/validate"
 	sdkInstance.login(edt_mobile.getText().toString(), edt_code.getText().toString());
 
 4、调用录制功能，可以传递视频录制的位置信息，以及主题ID，用于区分视频存放区域（分类用）
