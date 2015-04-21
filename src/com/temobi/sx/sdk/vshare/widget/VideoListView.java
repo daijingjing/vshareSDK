@@ -176,6 +176,21 @@ public class VideoListView extends VideoListViewBase {
 
 	protected void onClickSupportUserAvatar(String userId) {
 	}
+
 	protected void onClickCommentUserAvatar(String userId) {
+	}
+	
+	@Override
+	protected void onClickRecommend(String userId, String videoId) {
+	}
+
+	@Override
+	protected View getRecommendView(View arg0) {
+		return arg0.findViewById(R.id.recommend);
+	}
+	
+	@Override
+	protected TextView getTitle(View arg0) {
+		return (TextView) arg0.findViewById(R.id.title);
 	}
 }
