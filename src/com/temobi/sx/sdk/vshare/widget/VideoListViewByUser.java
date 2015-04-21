@@ -155,4 +155,9 @@ public class VideoListViewByUser extends VideoListViewByUserBase {
 	}
 	protected void onClickCommentUserAvatar(String userId) {
 	}
+
+	@Override
+	protected TextView getTitle(View arg0) {
+		return (TextView)arg0.findViewById(R.id.title);
+	}
 }
