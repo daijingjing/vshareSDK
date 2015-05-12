@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
         android:layout_toRightOf="@id/comment_user_head"
+        android:textColor="#99000000"
         android:textSize="12sp" />
 
     <TextView

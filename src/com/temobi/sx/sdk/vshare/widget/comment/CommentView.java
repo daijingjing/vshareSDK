@@ -161,15 +161,8 @@ public class CommentView extends FrameLayout {
 			comment.UserName = comment.UserName.replaceAll("[\\r|\\n|\\t]", "");
 			comment.Content = comment.Content.replaceAll("[\\r|\\n|\\t]", "");
 			int nameLength = StringUtils.length(comment.UserName);
-			SpannableStringBuilder sb = new SpannableStringBuilder(nameLength > 0 ? comment.UserName + ":" + comment.Content : comment.Content);
-			if (nameLength > 0) {
-				sb.setSpan(new ForegroundColorSpan(Color.parseColor("#6a7a8a")), 0, nameLength + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-				sb.setSpan(new ForegroundColorSpan(Color.parseColor("#5a5a5a")), nameLength + 1, nameLength + comment.Content.length() - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			} else {
-				sb.setSpan(new ForegroundColorSpan(Color.parseColor("#5a5a5a")), 0, comment.Content.length() - 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-			}
 			
-			commentItemView.getCommentContentTextView().setText(sb);
+			commentItemView.getCommentContentTextView().setText(nameLength > 0 ? comment.UserName + ":" + comment.Content : comment.Content);
 			
 			commentItemView.getCommentDateTextView().setText(DateUtils.toBeauty(comment.Publish));
 			commentItemView.getCommentContentTextView().setOnLongClickListener(onCommentClickListener);

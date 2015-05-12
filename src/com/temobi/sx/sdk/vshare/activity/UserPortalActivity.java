@@ -8,6 +8,7 @@ import com.temobi.sx.sdk.vshare.R;
 import com.temobi.sx.sdk.vshare.R.layout;
 import com.temobi.sx.sdk.vshare.widget.VideoListViewByUser;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -38,7 +39,32 @@ public class UserPortalActivity extends Activity {
 		
 		ViewGroup container = (ViewGroup)findViewById(R.id.video_list_container);
 		
-		mVideoListViewByUser = new VideoListViewByUser(this, requestQueue);
+		mVideoListViewByUser = new VideoListViewByUser(this, requestQueue){
+			@Override
+			protected void onPlayVideo(String videoId) {
+				Intent intent = new Intent(UserPortalActivity.this, VideoPlayActivity.class);
+				intent.putExtra("VideoId", videoId);
+				UserPortalActivity.this.startActivity(intent);
+			}
+
+			@Override
+			protected void onShareVideo(String videoId, String posterUrl, String shortUrl) {
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(shortUrl));
+				startActivity(intent);
+			}
+			
+			@Override
+			protected void onClickCommentUserAvatar(String userId) {
+				Toast.makeText(getApplicationContext(), "onClickCommentUserAvatar", Toast.LENGTH_SHORT).show();
+				UserPortalActivity.start(getContext(), userId);
+			}
+
+			@Override
+			protected void onClickSupportUserAvatar(String userId) {
+				Toast.makeText(getApplicationContext(), "onClickSupportUserAvatar", Toast.LENGTH_SHORT).show();
+				UserPortalActivity.start(getContext(), userId);
+			}
+		};
 		container.addView(mVideoListViewByUser, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		
 		mVideoListViewByUser.load(userId);
